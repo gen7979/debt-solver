@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class DebtRegisterController extends Controller
 {
-    public function register()
+    public function index()
     {
         return view('register');
     }

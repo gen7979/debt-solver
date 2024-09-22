@@ -6,25 +6,53 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body class="p-3 m-0 border-0 bd-example m-0 border-0">
-
-  <!-- Example Code -->
-
-  <form data-bitwarden-watching="1">
+  <!-- 入力フォーム -->
+  <form method="post" action="{{ url('/calculate') }}">
+    @csrf
+    <!-- 会社名 -->
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      <label for="company" class="form-label">会社名</label>
+      <input
+        type="text"
+        class="form-control"
+        id="company"
+        name="company"
+        placeholder="借金をしている会社名を入力してください（匿名可能）"
+      >
     </div>
+    <!-- 借入金額 -->
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <label for="loanAmount" class="form-label">借入金額</label>
+      <input
+        type="number"
+        class="form-control"
+        id="loanAmount"
+        name="loanAmount"
+        placeholder="上で入力した会社から借りている金額を入力してください"
+      >
     </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    <!-- 金利 -->
+    <div class="mb-3">
+      <label for="interestRates" class="form-label">金利</label>
+      <input
+        type="number"
+        class="form-control"
+        id="interestRates"
+        name="interestRates"
+        placeholder="金利を入力してください"
+      >
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <!-- 返済金額 -->
+    <div class="mb-3">
+      <label for="monthlyInterestRate" class="form-label">返済金額</label>
+      <input
+        type="number"
+        class="form-control"
+        id="monthlyInterestRate"
+        name="monthlyInterestRate"
+        placeholder="毎月の返済金額を入力してください"
+      >
+    </div>
+    <button type="submit" class="btn btn-primary">登録</button>
   </form>
-
-  <!-- End Example Code -->
 </body>
