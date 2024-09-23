@@ -22,7 +22,7 @@
     </div>
     <!-- 借入金額 -->
     <div class="mb-3">
-      <label for="loanAmount" class="form-label">借入金額</label>
+      <label for="loanAmount" class="form-label">残債（円）</label>
       <input
         type="number"
         class="form-control"
@@ -33,23 +33,24 @@
     </div>
     <!-- 金利 -->
     <div class="mb-3">
-      <label for="interestRates" class="form-label">金利</label>
+      <label for="interestRates" class="form-label">利息（%）</label>
       <input
         type="number"
+        step="0.01"
         class="form-control"
         id="interestRates"
         name="interestRates"
-        placeholder="金利を入力してください"
+        placeholder="利息を入力してください"
       >
     </div>
     <!-- 返済金額 -->
     <div class="mb-3">
-      <label for="monthlyInterestRate" class="form-label">返済金額</label>
+      <label for="repaymentAmount" class="form-label">毎月の返済金額（円）</label>
       <input
         type="number"
         class="form-control"
-        id="monthlyInterestRate"
-        name="monthlyInterestRate"
+        id="repaymentAmount"
+        name="repaymentAmount"
         placeholder="毎月の返済金額を入力してください"
       >
     </div>
