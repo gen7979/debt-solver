@@ -36,12 +36,20 @@ class DebtCalculateService
       $loanAmount -= $repaymentAmount - $commission;
       // 返済期間を計算
       $repaymentPeriods++;
+
+      // 返済スケジュールを計算
+      $schedule[$repaymentPeriods . "ヶ月目"] = [
+        'repaymentAmount' => $repaymentAmount,
+        'interestAmount' => $commission,
+        'remainingBalance' => max(0, $loanAmount),
+      ];
     }
 
     return [
       'totalAmount' => $totalAmount,           // 総額
       'totalInterest' => $totalInterest,       // 総利息
-      'repaymentPeriods' => $repaymentPeriods  // 返済期間
+      'repaymentPeriods' => $repaymentPeriods,  // 返済期間
+      'repaymentSchedule' => $schedule         // 返済スケジュール
     ];
   }
 }

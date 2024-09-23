@@ -51,6 +51,32 @@
         <span class="fw-bold">{{ '返済期間：' }}</span>
         <span id="repayment-periods">{{ $calculateData['repaymentPeriods'] }}</span><span>ヶ月</span>
       </div>
+      <div class="mb-3">
+        <span class="fw-bold">{{ '返済スケジュール：' }}</span>
+        <button class="accordion">スケジュールを表示</button>
+        <div class="panel" style="display: none;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>期間</th>
+                <th>返済金額</th>
+                <th>利息</th>
+                <th>残高</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($calculateData['repaymentSchedule'] as $period => $details)
+                <tr>
+                  <td>{{ $period }}</td>
+                  <td>{{ $details['repaymentAmount'] }}</td>
+                  <td>{{ $details['interestAmount'] }}</td>
+                  <td>{{ $details['remainingBalance'] }}</td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -72,6 +98,21 @@
     loanAmountElement.textContent = formatCurrency(loanAmountElement.textContent);
     repaymentAmountElement.textContent = formatCurrency(repaymentAmountElement.textContent);
   });
+
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
 </script>
 
 </body>
