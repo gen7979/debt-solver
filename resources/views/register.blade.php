@@ -15,6 +15,24 @@
     </button>
   </form>
 
+  <form method="GET" action="{{ route('calculate') }}">
+    @csrf
+    <button type="button" class="btn btn-outline-primary"
+            onclick="event.preventDefault(); this.closest('form').submit();">
+      マイページ
+    </button>
+  </form>
+
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
+
   <!-- 入力フォーム -->
   <form method="post" action="{{ url('/debt-register') }}">
     @csrf
