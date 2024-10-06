@@ -23,9 +23,25 @@
 
 <div class="container mt-5">
     <a href="/debt-register" class="btn btn-primary mb-3">登録画面</a>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
+
     <div class="card shadow-lg">
         <div class="card-body">
             <h5 class="card-title text-center mb-4">{{ '借金返済シミュレーター' }}</h5>
+            <!-- 編集モーダル -->
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal">
+                編集
+            </button>
+            @include('edit-modal')
+
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label fw-bold">{{ '会社名：' }}</label>
                 <div class="col-sm-8">
@@ -33,7 +49,7 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label fw-bold">{{ '借入金額：' }}</label>
+                <label class="col-sm-4 col-form-label fw-bold">{{ '残債：' }}</label>
                 <div class="col-sm-8">
                     <span id="loan-amount">{{ $loanAmount }}</span><span>円</span>
                 </div>

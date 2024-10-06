@@ -60,7 +60,7 @@
     </div>
     <!-- 金利 -->
     <div class="mb-3">
-      <label for="interest_rate" class="form-label">利息（%）</label>
+      <label for="interest_rate" class="form-label">利率（%）</label>
       <input
         type="number"
         step="0.01"

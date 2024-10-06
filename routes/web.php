@@ -12,8 +12,8 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     // 借金返済フォーム
     Route::get('/debt-register', [DebtRegisterController::class, 'create'])->name('debt-register');
-    Route::post('/debt-register', [DebtRegisterController::class, 'store'])->name('debt-register');
-
+    Route::post('/debt-register', [DebtRegisterController::class, 'store'])->name('debt-register.store');
+    Route::put('/debt-register/{id}', [DebtRegisterController::class, 'update'])->name('debt-register.update');
     // 借金返済計算
     Route::get('/calculate', [DebtCalculateController::class, 'index'])->name('calculate');
 });
