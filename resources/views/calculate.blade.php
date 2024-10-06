@@ -22,7 +22,7 @@
 <body>
 
 <div class="container mt-5">
-    <a href="/register" class="btn btn-primary mb-3">登録画面</a>
+    <a href="/debt-register" class="btn btn-primary mb-3">登録画面</a>
     <div class="card shadow-lg">
         <div class="card-body">
             <h5 class="card-title text-center mb-4">{{ '借金返済シミュレーター' }}</h5>
@@ -53,19 +53,19 @@
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label fw-bold">{{ '総額：' }}</label>
                 <div class="col-sm-8">
-                    <span id="total-amount">{{ $calculateData['totalAmount'] }}</span><span>円</span>
+                    <span id="total-amount">{{ $totalAmount }}</span><span>円</span>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label fw-bold">{{ '総利息：' }}</label>
                 <div class="col-sm-8">
-                    <span id="total-interest">{{ $calculateData['totalInterest'] }}</span><span>円</span>
+                    <span id="total-interest">{{ $totalInterest }}</span><span>円</span>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label fw-bold">{{ '返済期間：' }}</label>
                 <div class="col-sm-8">
-                    <span id="repayment-periods">{{ $calculateData['repaymentPeriods'] }}</span><span>ヶ月</span>
+                    <span id="repayment-periods">{{ $repaymentPeriods }}</span><span>ヶ月</span>
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($calculateData['repaymentSchedule'] as $period => $details)
+                                        @foreach($repaymentSchedule as $period => $details)
                                         <tr>
                                             <td>{{ $period }}</td>
                                             <td>{{ $details['repaymentAmount'] }}</td>
