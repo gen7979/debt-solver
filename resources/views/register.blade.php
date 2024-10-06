@@ -16,51 +16,62 @@
   </form>
 
   <!-- 入力フォーム -->
-  <form method="post" action="{{ url('/calculate') }}">
+  <form method="post" action="{{ url('/debt-register') }}">
     @csrf
     <!-- 会社名 -->
     <div class="mb-3">
-      <label for="company" class="form-label">会社名</label>
+      <label for="company_name" class="form-label">会社名</label>
       <input
         type="text"
         class="form-control"
-        id="company"
-        name="company"
+        id="company_name"
+        name="company_name"
         placeholder="借金をしている会社名を入力してください（匿名可能）"
       >
     </div>
-    <!-- 借入金額 -->
+    <!-- 残債 -->
     <div class="mb-3">
-      <label for="loanAmount" class="form-label">残債（円）</label>
+      <label for="remaining_amount" class="form-label">残債（円）</label>
       <input
         type="number"
         class="form-control"
-        id="loanAmount"
-        name="loanAmount"
+        id="remaining_amount"
+        name="remaining_amount"
         placeholder="上で入力した会社から借りている金額を入力してください"
       >
     </div>
     <!-- 金利 -->
     <div class="mb-3">
-      <label for="interestRates" class="form-label">利息（%）</label>
+      <label for="interest_rate" class="form-label">利息（%）</label>
       <input
         type="number"
         step="0.01"
         class="form-control"
-        id="interestRates"
-        name="interestRates"
+        id="interest_rate"
+        name="interest_rate"
         placeholder="利息を入力してください"
       >
     </div>
-    <!-- 返済金額 -->
+    <!-- 毎月の返済金額 -->
     <div class="mb-3">
-      <label for="repaymentAmount" class="form-label">毎月の返済金額（円）</label>
+      <label for="repayment_amount" class="form-label">毎月の返済金額（円）</label>
       <input
         type="number"
         class="form-control"
-        id="repaymentAmount"
-        name="repaymentAmount"
+        id="repayment_amount"
+        name="repayment_amount"
         placeholder="毎月の返済金額を入力してください"
+      >
+    </div>
+    <!-- 返済日 -->
+    <div class="mb-3">
+      <label for="repayment_day" class="form-label">返済日(日)</label>
+      <input
+        type="number"
+        class="form-control"
+        id="repayment_day"
+        name="repayment_day"
+        placeholder="返済日を入力してください（日付のみ）"
       >
     </div>
     <button type="submit" class="btn btn-primary">登録</button>
