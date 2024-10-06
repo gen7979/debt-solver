@@ -10,8 +10,12 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/debt-register', [DebtRegisterController::class, 'index'])->name('debt-register');
-    Route::post('/calculate', [DebtCalculateController::class, 'calculate'])->name('calculate');
+    // 借金返済フォーム
+    Route::get('/debt-register', [DebtRegisterController::class, 'create'])->name('debt-register');
+    Route::post('/debt-register', [DebtRegisterController::class, 'store'])->name('debt-register');
+
+    // 借金返済計算
+    Route::get('/calculate', [DebtCalculateController::class, 'index'])->name('calculate');
 });
 
 // 設定状況を確認するパス
