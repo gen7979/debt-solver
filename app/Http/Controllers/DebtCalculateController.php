@@ -23,11 +23,10 @@ class DebtCalculateController extends Controller
      * @param Request $request リクエスト
      * @return \Illuminate\View\View 計算結果のビュー
      */
-    public function index(Request $request)
+    public function index()
     {
         // 計算
-        $calculateData = $this->debtCalculateService->debtCalculate();
-
+        $calculateData = $this->debtCalculateService->calculateDebt();
 
         return view('calculate', $calculateData);
     }
