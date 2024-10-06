@@ -6,6 +6,16 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+  <!-- ログアウトフォーム -->
+  <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+      {{ __('Log Out') }}
+    </x-responsive-nav-link>
+  </form>
+
   <!-- 入力フォーム -->
   <form method="post" action="{{ url('/calculate') }}">
     @csrf
