@@ -23,6 +23,10 @@ class DebtCalculateService
     {
         $debtData = $this->debtRepository->getDebtByUserId(Auth::user()->id);
 
+        // 表示データがない場合は空配列を返す
+        if (is_null($debtData)) {
+            return [];
+        }
         $totalInterest = 0;                              // 総利息
         $remainingAmount = $debtData->remaining_amount;  // 借入金額
         $interestRate = $debtData->interest_rate;        // 利率
