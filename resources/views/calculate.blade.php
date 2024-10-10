@@ -34,7 +34,7 @@
     @endif
 
     <div class="card shadow-lg">
-        @if (empty($calculateData))
+        @if (empty($companyName))
             <p>データがありません</p>
         @else
             <div class="card-body">
