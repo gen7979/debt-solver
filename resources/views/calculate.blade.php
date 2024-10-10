@@ -2,26 +2,28 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>借金返済シミュレーター</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-  {{-- Bootstrap JS --}}
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>借金返済シミュレーター</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{-- Bootstrap JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
     .card {
-      margin: 20px auto;
-      max-width: 600px;
+        margin: 20px auto;
+        max-width: 600px;
     }
 
     .card-title {
-      font-weight: bold;
+        font-weight: bold;
     }
-  </style>
-  @php
-      $firstTab = array_key_first($calculateData);
-  @endphp
+    </style>
+    @php
+        $totalData = $calculateData['totalData'];
+        $viewData = $calculateData['viewData'];
+        $firstTab = array_key_first($viewData);
+    @endphp
 </head>
 
 <body>
@@ -40,21 +42,34 @@
     @endif
 
     <div class="card shadow-lg">
-        @if (empty($calculateData))
+        @if (empty($viewData))
             <p>データがありません</p>
         @else
             <ul class="nav nav-tabs" id="companyTabs" role="tablist">
-                @foreach($calculateData as $companyName => $data)
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="tab-totalData-tab" data-bs-toggle="tab" href="#tab-totalData" role="tab" aria-controls="tab-totalData" aria-selected="true">
+                        合計
+                    </a>
+                </li>
+                @foreach($viewData as $companyName => $data)
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link @if($companyName === $firstTab) active @endif" id="tab-{{ $companyName }}-tab" data-bs-toggle="tab" href="#tab-{{ $companyName }}" role="tab" aria-controls="tab-{{ $companyName }}" aria-selected="{{ $companyName === $firstTab ? 'true' : 'false' }}">
+                        <a class="nav-link" id="tab-{{ $companyName }}-tab" data-bs-toggle="tab" href="#tab-{{ $companyName }}" role="tab" aria-controls="tab-{{ $companyName }}" aria-selected="false">
                             {{ $companyName }}
                         </a>
                     </li>
                 @endforeach
             </ul>
             <div class="tab-content" id="companyTabsContent">
-                @foreach($calculateData as $companyName => $data)
-                    <div class="tab-pane fade @if($companyName === $firstTab) show active @endif" id="tab-{{ $companyName }}" role="tabpanel" aria-labelledby="tab-{{ $companyName }}-tab">
+                {{-- 合計データ --}}
+                <div class="tab-pane fade show active" id="tab-totalData" role="tabpanel" aria-labelledby="tab-totalData-tab">
+                    {{-- コンテンツ --}}
+                    <div class="contents m-3">
+                        @include('total-data-content')
+                    </div>
+                </div>
+                {{-- 会社ごとのデータ --}}
+                @foreach($viewData as $companyName => $data)
+                    <div class="tab-pane fade" id="tab-{{ $companyName }}" role="tabpanel" aria-labelledby="tab-{{ $companyName }}-tab">
                         <!-- 編集モーダル -->
                         <button type="button" class="btn btn-success m-3" data-bs-toggle="modal" data-bs-target="#editModal-{{ $companyName }}">
                             編集

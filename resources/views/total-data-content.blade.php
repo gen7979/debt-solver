@@ -1,43 +1,31 @@
 <div class="mb-3 row">
-    <label class="col-sm-4 col-form-label fw-bold">{{ '会社名：' }}</label>
-    <div class="col-sm-8">
-        <span id="company-name">{{ $data['companyName'] }}</span>
-    </div>
-</div>
-<div class="mb-3 row">
     <label class="col-sm-4 col-form-label fw-bold">{{ '残債：' }}</label>
     <div class="col-sm-8">
-        <span id="loan-amount">{{ $data['loanAmount'] }}</span><span>円</span>
-    </div>
-</div>
-<div class="mb-3 row">
-    <label class="col-sm-4 col-form-label fw-bold">{{ '金利：' }}</label>
-    <div class="col-sm-8">
-        <span id="interest-rate">{{ $data['interestRates'] }}</span><span>%</span>
+        <span id="loan-amount">{{ $totalData['loanAmount'] }}</span><span>円</span>
     </div>
 </div>
 <div class="mb-3 row">
     <label class="col-sm-4 col-form-label fw-bold">{{ '毎月の返済金額：' }}</label>
     <div class="col-sm-8">
-        <span id="repayment-amount">{{ $data['repaymentAmount'] }}</span><span>円</span>
+        <span id="repayment-amount">{{ $totalData['repaymentAmount'] }}</span><span>円</span>
     </div>
 </div>
 <div class="mb-3 row">
     <label class="col-sm-4 col-form-label fw-bold">{{ '総額：' }}</label>
     <div class="col-sm-8">
-        <span id="total-amount">{{ $data['totalAmount'] }}</span><span>円</span>
+        <span id="total-amount">{{ $totalData['totalAmount'] }}</span><span>円</span>
     </div>
 </div>
 <div class="mb-3 row">
     <label class="col-sm-4 col-form-label fw-bold">{{ '総利息：' }}</label>
     <div class="col-sm-8">
-        <span id="total-interest">{{ $data['totalInterest'] }}</span><span>円</span>
+        <span id="total-interest">{{ $totalData['totalInterest'] }}</span><span>円</span>
     </div>
 </div>
 <div class="mb-3 row">
     <label class="col-sm-4 col-form-label fw-bold">{{ '返済期間：' }}</label>
     <div class="col-sm-8">
-        <span id="repayment-periods">{{ $data['repaymentPeriods'] }}</span><span>ヶ月</span>
+        <span id="repayment-periods">{{ $totalData['repaymentPeriods'] }}</span><span>ヶ月</span>
     </div>
 </div>
 <div class="mb-3">
@@ -60,7 +48,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data['repaymentSchedule'] as $period => $details)
+                            @foreach($totalData['repaymentSchedule'] as $period => $details)
                             <tr>
                                 <td>{{ $period }}</td>
                                 <td>{{ $details['repaymentAmount'] }}</td>

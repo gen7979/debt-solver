@@ -28,8 +28,8 @@ class DebtCalculateService
             return [];
         }
 
+        // 表示データを取得
         $viewData = [];
-
         foreach ($data as $debtData) {
             $totalInterest = 0;                              // 総利息
             $remainingAmount = $debtData->remaining_amount;  // 借入金額
@@ -57,7 +57,6 @@ class DebtCalculateService
                     'repaymentAmount' => $repaymentAmount,
                     'interestAmount' => $commission,
                     'remainingBalance' => max(0, $remainingAmount),
-                    'repaymentDay' => $repaymentDay,
                 ];
             }
 
@@ -75,6 +74,47 @@ class DebtCalculateService
             ];
         }
 
-        return $viewData;
+        // 変数を初期化
+        $totalInterest = 0;
+        $loanAmount = 0;
+        $totalAmount = 0;
+        $repaymentAmount = 0;
+        $schedule = [];
+
+        foreach ($viewData as $data) {
+            $totalInterest += $data['totalInterest'];      // 総利息 
+            $loanAmount += $data['loanAmount'];       // 借入金額
+            $totalAmount += $data['totalAmount'];          // 総額
+            $repaymentAmount += $data['repaymentAmount'];  // 毎月の返済金額
+
+            // 返済スケジュールを計算
+            foreach ($data['repaymentSchedule'] as $repaymentPeriods => $value) {
+                if (!isset($schedule[$repaymentPeriods])) {
+                    $schedule[$repaymentPeriods] = [
+                        'repaymentAmount' => $value['repaymentAmount'],
+                        'interestAmount' => $value['interestAmount'],
+                        'remainingBalance' => $value['remainingBalance'],
+                    ];
+                } else {
+                    $schedule[$repaymentPeriods]['repaymentAmount'] += $value['repaymentAmount'];
+                    $schedule[$repaymentPeriods]['interestAmount'] += $value['interestAmount'];
+                    $schedule[$repaymentPeriods]['remainingBalance'] += $value['remainingBalance'];
+                }
+            }
+        }
+
+        $totalData = [
+            'loanAmount' => $loanAmount, // 残債
+            'totalAmount' => $totalAmount,             // 総額
+            'totalInterest' => $totalInterest,         // 総利息
+            'repaymentAmount' => $repaymentAmount,     // 毎月の返済金額
+            'repaymentPeriods' => count($schedule),    // 返済期間
+            'repaymentSchedule' => $schedule           // 返済スケジュール
+        ];
+
+        return [
+            'totalData' => $totalData,
+            'viewData' => $viewData,
+        ];
     }
 }
