@@ -56,12 +56,12 @@
                 @foreach($calculateData as $companyName => $data)
                     <div class="tab-pane fade @if($companyName === $firstTab) show active @endif" id="tab-{{ $companyName }}" role="tabpanel" aria-labelledby="tab-{{ $companyName }}-tab">
                         <!-- 編集モーダル -->
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal-{{ $companyName }}">
+                        <button type="button" class="btn btn-success m-3" data-bs-toggle="modal" data-bs-target="#editModal-{{ $companyName }}">
                             編集
                         </button>
                         @include('edit-modal')
                         {{-- コンテンツ --}}
-                        <div class="contents">
+                        <div class="contents m-3">
                             @include('content')
                         </div>
                     </div>

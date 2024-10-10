@@ -41,8 +41,7 @@
     </div>
 </div>
 <div class="mb-3">
-    <span class="fw-bold">{{ '返済スケジュール：' }}</span>
-    <div class="accordion" id="accordionFlushExample">
+    <div class="accordion mt-3" id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
