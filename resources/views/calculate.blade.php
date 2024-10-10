@@ -2,26 +2,34 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>借金返済シミュレーター</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>借金返済シミュレーター</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{-- Bootstrap JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
     .card {
-      margin: 20px auto;
-      max-width: 600px;
+        margin: 20px auto;
+        max-width: 600px;
     }
 
     .card-title {
-      font-weight: bold;
+        font-weight: bold;
     }
-  </style>
+    </style>
+    @php
+        $totalData = $calculateData['totalData'];
+        $viewData = $calculateData['viewData'];
+        $firstTab = array_key_first($viewData);
+    @endphp
 </head>
 
 <body>
 
 <div class="container mt-5">
+    <h1>借金返済シミュレーター</h1>
     <a href="/debt-register" class="btn btn-primary mb-3">登録画面</a>
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -34,18 +42,55 @@
     @endif
 
     <div class="card shadow-lg">
-        @if (empty($calculateData))
+        @if (empty($viewData))
             <p>データがありません</p>
         @else
+            <ul class="nav nav-tabs" id="companyTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="tab-totalData-tab" data-bs-toggle="tab" href="#tab-totalData" role="tab" aria-controls="tab-totalData" aria-selected="true">
+                        合計
+                    </a>
+                </li>
+                @foreach($viewData as $companyName => $data)
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="tab-{{ $companyName }}-tab" data-bs-toggle="tab" href="#tab-{{ $companyName }}" role="tab" aria-controls="tab-{{ $companyName }}" aria-selected="false">
+                            {{ $companyName }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+            <div class="tab-content" id="companyTabsContent">
+                {{-- 合計データ --}}
+                <div class="tab-pane fade show active" id="tab-totalData" role="tabpanel" aria-labelledby="tab-totalData-tab">
+                    {{-- コンテンツ --}}
+                    <div class="contents m-3">
+                        @include('total-data-content')
+                    </div>
+                </div>
+                {{-- 会社ごとのデータ --}}
+                @foreach($viewData as $companyName => $data)
+                    <div class="tab-pane fade" id="tab-{{ $companyName }}" role="tabpanel" aria-labelledby="tab-{{ $companyName }}-tab">
+                        <!-- 編集モーダル -->
+                        <button type="button" class="btn btn-success m-3" data-bs-toggle="modal" data-bs-target="#editModal-{{ $companyName }}">
+                            編集
+                        </button>
+                        @include('edit-modal')
+                        {{-- コンテンツ --}}
+                        <div class="contents m-3">
+                            @include('content')
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        
             <div class="card-body">
-                <h5 class="card-title text-center mb-4">{{ '借金返済シミュレーター' }}</h5>
                 <!-- 編集モーダル -->
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal">
+                {{-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal">
                     編集
                 </button>
-                @include('edit-modal')
+                @include('edit-modal') --}}
 
-                <div class="mb-3 row">
+                {{-- <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label fw-bold">{{ '会社名：' }}</label>
                     <div class="col-sm-8">
                         <span id="company-name">{{ $companyName }}</span>
@@ -123,15 +168,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         @endif
     </div>
 </div>
 
 
-  <!-- Bootstrap JS (必要なら) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- カンマ区切り用のJavaScript -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {

@@ -35,6 +35,6 @@ class DebtRepository
 
     public function getDebtByUserId($userId)
     {
-        return Debt::where('user_id', $userId)->get()->first();
+        return Debt::where('user_id', $userId)->get();
     }
 }

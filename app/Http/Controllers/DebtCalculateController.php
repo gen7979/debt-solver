@@ -28,6 +28,12 @@ class DebtCalculateController extends Controller
         // 計算
         $calculateData = $this->debtCalculateService->calculateDebt();
 
-        return view('calculate', $calculateData);
+        $tabData = [];
+
+        $data = [
+            'tabData' => $tabData,
+            'calculateData' => $calculateData,
+        ];
+        return view('calculate', $data);
     }
 }
