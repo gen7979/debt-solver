@@ -10,8 +10,15 @@
 <body>
     @include('partials.header')
 
-    <div class="container mt-4">
-        @yield('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                @include('partials.sidebar')
+            </div>
+            <div class="col-md-9 mt-4">
+                @yield('content')
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS and Popper.js -->
