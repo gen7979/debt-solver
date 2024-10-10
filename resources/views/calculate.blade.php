@@ -10,14 +10,13 @@
     {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-    .card {
-        margin: 20px auto;
-        max-width: 600px;
-    }
+        .container {
+            max-width: 1000px;
+        }
 
-    .card-title {
-        font-weight: bold;
-    }
+        .card-title {
+            font-weight: bold;
+        }
     </style>
     @php
         $totalData = $calculateData['totalData'];
