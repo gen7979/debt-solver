@@ -15,6 +15,24 @@
     </button>
   </form>
 
+  <form method="GET" action="{{ route('calculate') }}">
+    @csrf
+    <button type="button" class="btn btn-outline-primary"
+            onclick="event.preventDefault(); this.closest('form').submit();">
+      マイページ
+    </button>
+  </form>
+
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
+
   <!-- 入力フォーム -->
   <form method="post" action="{{ url('/debt-register') }}">
     @csrf
@@ -42,7 +60,7 @@
     </div>
     <!-- 金利 -->
     <div class="mb-3">
-      <label for="interest_rate" class="form-label">利息（%）</label>
+      <label for="interest_rate" class="form-label">利率（%）</label>
       <input
         type="number"
         step="0.01"

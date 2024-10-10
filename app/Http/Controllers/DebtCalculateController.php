@@ -10,7 +10,7 @@ class DebtCalculateController extends Controller
     /**
      * コンストラクタ
      *
-     * @param DebtCalculateService $debtCalculateService 借金計算サービス
+     * @param DebtCalculateService
      */
     public function __construct(
         protected DebtCalculateService $debtCalculateService

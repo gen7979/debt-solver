@@ -23,6 +23,10 @@ class DebtCalculateService
     {
         $debtData = $this->debtRepository->getDebtByUserId(Auth::user()->id);
 
+        // 表示データがない場合は空配列を返す
+        if (is_null($debtData)) {
+            return [];
+        }
         $totalInterest = 0;                              // 総利息
         $remainingAmount = $debtData->remaining_amount;  // 借入金額
         $interestRate = $debtData->interest_rate;        // 利率
@@ -54,14 +58,16 @@ class DebtCalculateService
         }
 
         return [
+            'id' => $debtData->id,
             'companyName' => $debtData->company_name,    // 会社名
-            'loanAmount' => $debtData->remaining_amount,
-            'interestRates' => $interestRate,
-            'repaymentAmount' => $repaymentAmount,
-            'totalAmount' => $totalAmount,           // 総額
-            'totalInterest' => $totalInterest,       // 総利息
-            'repaymentPeriods' => $repaymentPeriods,  // 返済期間
-            'repaymentSchedule' => $schedule         // 返済スケジュール
+            'loanAmount' => $debtData->remaining_amount, // 残債
+            'interestRates' => $interestRate,           // 利率
+            'repaymentAmount' => $repaymentAmount,     // 毎月の返済金額
+            'repaymentDay' => $repaymentDay,           // 返済日
+            'totalAmount' => $totalAmount,             // 総額
+            'totalInterest' => $totalInterest,         // 総利息
+            'repaymentPeriods' => $repaymentPeriods,    // 返済期間
+            'repaymentSchedule' => $schedule           // 返済スケジュール
         ];
     }
 }
