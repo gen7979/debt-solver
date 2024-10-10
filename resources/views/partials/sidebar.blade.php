@@ -1,13 +1,17 @@
 <!-- resources/views/partials/sidebar.blade.php -->
 
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 250px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <span class="fs-4">Sidebar</span>
-    </a>
+    <span class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none fs-4">Sidebar</span>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="/debt-register" class="nav-link active" aria-current="page">
+            <a href="/" class="nav-link active" aria-current="page">
+                <i class="bi bi-house"></i>
+                マイページ
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/debt-register" class="nav-link" aria-current="page">
                 <i class="bi bi-house"></i>
                 登録フォーム
             </a>

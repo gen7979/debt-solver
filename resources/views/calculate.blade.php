@@ -18,9 +18,8 @@
     @endphp
 
     <body>
+        <h1>返済スケジュール</h1>
         <div class="container mt-5">
-            <h1>借金返済シミュレーター</h1>
-            <a href="/debt-register" class="btn btn-primary mb-3">登録画面</a>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -71,94 +70,6 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>
-                
-                    <div class="card-body">
-                        <!-- 編集モーダル -->
-                        {{-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal">
-                            編集
-                        </button>
-                        @include('edit-modal') --}}
-
-                        {{-- <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-bold">{{ '会社名：' }}</label>
-                            <div class="col-sm-8">
-                                <span id="company-name">{{ $companyName }}</span>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-bold">{{ '残債：' }}</label>
-                            <div class="col-sm-8">
-                                <span id="loan-amount">{{ $loanAmount }}</span><span>円</span>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-bold">{{ '金利：' }}</label>
-                            <div class="col-sm-8">
-                                <span id="interest-rate">{{ $interestRates }}</span><span>%</span>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-bold">{{ '毎月の返済金額：' }}</label>
-                            <div class="col-sm-8">
-                                <span id="repayment-amount">{{ $repaymentAmount }}</span><span>円</span>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-bold">{{ '総額：' }}</label>
-                            <div class="col-sm-8">
-                                <span id="total-amount">{{ $totalAmount }}</span><span>円</span>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-bold">{{ '総利息：' }}</label>
-                            <div class="col-sm-8">
-                                <span id="total-interest">{{ $totalInterest }}</span><span>円</span>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label class="col-sm-4 col-form-label fw-bold">{{ '返済期間：' }}</label>
-                            <div class="col-sm-8">
-                                <span id="repayment-periods">{{ $repaymentPeriods }}</span><span>ヶ月</span>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <span class="fw-bold">{{ '返済スケジュール：' }}</span>
-                            <div class="accordion" id="accordionFlushExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                            返済スケジュールを表示
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <table class="table table-striped table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>期間</th>
-                                                        <th>返済金額</th>
-                                                        <th>利息</th>
-                                                        <th>残高</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($repaymentSchedule as $period => $details)
-                                                    <tr>
-                                                        <td>{{ $period }}</td>
-                                                        <td>{{ $details['repaymentAmount'] }}</td>
-                                                        <td>{{ $details['interestAmount'] }}</td>
-                                                        <td>{{ $details['remainingBalance'] }}</td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                 @endif
             </div>
