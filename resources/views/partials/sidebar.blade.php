@@ -5,7 +5,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-            <a href="/" class="nav-link {{Request::is('/') ? 'active' : ''}}" aria-current="page">
+            <a href="/mypage" class="nav-link {{Request::is('mypage') ? 'active' : ''}}" aria-current="page">
                 <i class="bi bi-house"></i>
                 マイページ
             </a>

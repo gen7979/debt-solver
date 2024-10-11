@@ -5,9 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DebtRegisterController;
 use App\Http\Controllers\DebtCalculateController;
 
+Route::get('/mypage', function () {
+    return view('mypage');
+})->name('mypage');
+
 Route::get('/', function () {
     return view('login');
-});
+})->name('debd-login');
 
 Route::middleware('auth')->group(function () {
     // 借金返済登録フォーム
