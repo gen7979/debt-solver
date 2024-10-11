@@ -4,16 +4,15 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DebtRegisterController;
 use App\Http\Controllers\DebtCalculateController;
-
-Route::get('/mypage', function () {
-    return view('mypage');
-})->name('mypage');
+use App\Http\Controllers\MypageController;
 
 Route::get('/', function () {
     return view('login');
 })->name('debd-login');
 
 Route::middleware('auth')->group(function () {
+    // マイページ
+    Route::get('/mypage', [MypageController::class, 'index'])->name('mypage');
     // 借金返済登録フォーム
     Route::get('/debt-register', [DebtRegisterController::class, 'create'])->name('debt-register');
     Route::post('/debt-register', [DebtRegisterController::class, 'store'])->name('debt-register.store');
