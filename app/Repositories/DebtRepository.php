@@ -43,7 +43,6 @@ class DebtRepository
     public function getUpcomingDebts()
     {
         $today = Carbon::today();
-        $today = Carbon::parse("2024-10-20");
 
         $result
         = Debt::where('user_id', Auth::user()->id)

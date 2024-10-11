@@ -3,7 +3,7 @@
 @section('title', 'Home Page')
 @section('content')
   <h1>マイページ</h1>
-  @if(!$upcomingDebts->isEmpty())
+  @if($upcomingDebts != [])
     <div class="modal fade" id="debtReminderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -12,10 +12,12 @@
           </div>
           <div class="modal-body">
             <p>以下の返済はお済みですか？</p><br>
-            @foreach($upcomingDebts as $debts)
-              <p class="fw-bolder">{{ $debts->company_name }}</p>
-              <p>{{ '毎月 ' . $debts->repayment_day . '日' }}</p>
-              <p>{{ '毎月 ' . $debts->repayment_amount . '円' }}</p><br>
+            @foreach($upcomingDebts as $companyName => $data)
+              <p class="fw-bolder">{{ $companyName }}</p>
+              @foreach ($data as $dateYm => $data)
+                <p>{{ $dateYm . $data['repaymentDay'] . '日' }}</p>
+                <p>{{ $data['repaymentAmount'] . '円' }}</p>                  
+              @endforeach
             @endforeach
           </div>
           <div class="modal-footer">
@@ -33,13 +35,10 @@
         var modal = new bootstrap.Modal(modalElement);
         modal.show();
 
-        // 確認済みボタンを押した際の非同期処理
+        // 確認済みボタンを押した際の処理
         var confirmButton = document.getElementById('confirmReminderBtn');
-        confirmButton.addEventListener('click', function() {
-          // ここにクリックされた時の処理を記述
-          console.log('確認済みボタンがクリックされました');
-          
-          // 例えば、モーダルを閉じる処理
+        confirmButton.addEventListener('click', function() {          
+          // モーダルを閉じる処理
           var modalElement = document.getElementById('debtReminderModal');
           var modal = bootstrap.Modal.getInstance(modalElement);
           modal.hide();
