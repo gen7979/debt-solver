@@ -24,12 +24,37 @@
     </div>
   @endif
   <script>
-    // リロード時にモーダルを表示する
     document.addEventListener('DOMContentLoaded', function() {
+        // リロード時にモーダルを表示する
         var modalElement = document.getElementById('debtReminderModal');
         var modal = new bootstrap.Modal(modalElement);
         modal.show();
+
+        // 確認済みボタンを押した際の非同期処理
+        var confirmButton = document.getElementById('confirmReminderBtn');
+        confirmButton.addEventListener('click', function() {
+          // ここにクリックされた時の処理を記述
+          console.log('確認済みボタンがクリックされました');
+          
+          // 例えば、モーダルを閉じる処理
+          var modalElement = document.getElementById('debtReminderModal');
+          var modal = bootstrap.Modal.getInstance(modalElement);
+          modal.hide();
+
+          // Ajaxリクエスト処理を実行
+          fetch('{{ route('reminder.confirm') }}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': '{{ csrf_token() }}' // Laravelの場合、CSRFトークンが必要
+              },
+              body: JSON.stringify({ confirmed: true })
+          }).then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+        });
     });
-  </script>  
+  </script>
 @endsection
 
