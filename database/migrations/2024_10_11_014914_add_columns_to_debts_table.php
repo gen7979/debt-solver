@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('debts', function (Blueprint $table) {
-            $table->boolean('reminder_seen')->default(false);
+            $table->date('reminder_checked_date')->nullable()->after('is_repaid');
+            $table->dropColumn('is_repaid');
         });        
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('debts', function (Blueprint $table) {
-            $table->dropColumn('reminder_seen');
+            $table->dropColumn('reminder_checked_date');
+            $table->boolean('is_repaid')->default(false)->after('repayment_day');
         });
     }
 };

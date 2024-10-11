@@ -7,48 +7,30 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Services\MypageService;
 
 use function PHPUnit\Framework\isNull;
 
 class MypageController extends Controller
 {
+    private $mypageService;
+    public function __construct(MypageService $mypageService)
+    {
+        $this->mypageService = $mypageService;
+    }
     /**
      * マイページを表示
      * 
      * @param request
      * @return null|array
      */
-    public function index(Request $request) {
-        // デバッグ用にセッションを削除
-        $request->session()->forget('logged_in_today');
+    public function index() {
+        $upcomingDebts = $this->mypageService->getMypageViewData();
+        $data = [
+            'upcomingDebts' => $upcomingDebts
+        ];
 
-        // 初回ログインかどうかを確認するためにsessionを利用
-        if (!$request->session()->has('logged_in_today')) {
-
-            // 初回ログインの場合、セッションにフラグをセット
-            $request->session()->put('logged_in_today', true);
-
-            // フラグの状況を確認
-            $upcomingDebts = Debt::where('user_id', Auth::user()->id)
-                    ->where('repayment_day', '<=', date('d') + 7)
-                    ->where('reminder_seen', Debt::REMINDER_SEEN_STATUS['false'])
-                    ->get();
-
-            // データの取得有無に応じて処理を分岐
-            if (isNull( $upcomingDebts )) {
-                // 未取得の場合はデータ無しでマイページを表示
-                return view('mypage');
-            } else {
-                // 取得した場合は取得データをマイページに送る
-                $data = [
-                    'upcomingDebts' => $upcomingDebts
-                ];
-
-                return view('mypage', $data);
-            }
-        }
-
-        return view('mypage');
+        return view('mypage', $data);
     }
 
     /**
@@ -56,11 +38,14 @@ class MypageController extends Controller
      */
     public function confirmReminder()
     {
+        $today = Carbon::today();
         try {
-            $userId =  Auth::user()->id;
-            Debt::where('user_id', $userId)
-                ->where('repayment_day', '<=', date('d') + 7)
-                ->update(['reminder_seen' => Debt::REMINDER_SEEN_STATUS['true']]);
+            Debt::where('user_id', Auth::user()->id)
+                ->where('repayment_day', '<=', $today->day)
+                ->update([
+                    'reminder_checked_date' => $today,
+                ]);
+
             return response()->json(['status' => 'success']);
         } catch (\Exception $e) {
             Log::info($e);

@@ -3,7 +3,7 @@
 @section('title', 'Home Page')
 @section('content')
   <h1>マイページ</h1>
-  @if(isset($upcomingDebts))
+  @if(!$upcomingDebts->isEmpty())
     <div class="modal fade" id="debtReminderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -11,13 +11,16 @@
             <h5 class="modal-title" id="exampleModalLabel">返済リマインダー</h5>
           </div>
           <div class="modal-body">
+            <p>以下の返済はお済みですか？</p><br>
             @foreach($upcomingDebts as $debts)
-                <p>返済日が近づいています：{{ $debts->repayment_day }}</p>
+              <p class="fw-bolder">{{ $debts->company_name }}</p>
+              <p>{{ '毎月 ' . $debts->repayment_day . '日' }}</p>
+              <p>{{ '毎月 ' . $debts->repayment_amount . '円' }}</p><br>
             @endforeach
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-            <button type="button" class="btn btn-primary" id="confirmReminderBtn">確認済み</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">未返済</button>
+            <button type="button" class="btn btn-primary" id="confirmReminderBtn">返済済み</button>
           </div>
         </div>
       </div>
