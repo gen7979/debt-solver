@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Debt;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class DebtRepository
 {
@@ -36,5 +38,21 @@ class DebtRepository
     public function getDebtByUserId($userId)
     {
         return Debt::where('user_id', $userId)->get();
+    }
+
+    public function getUpcomingDebts()
+    {
+        $today = Carbon::today();
+
+        $result
+        = Debt::where('user_id', Auth::user()->id)
+            ->where('repayment_day', '<=', $today->day)
+            ->where(function ($query) use ($today) {
+                $query->whereRaw('DATE_FORMAT(reminder_checked_date, "%Y-%m") <> ?', [$today->format('Y-m')])
+                    ->orWhereNull('reminder_checked_date');
+            })
+            ->get();
+        
+        return $result;
     }
 }
